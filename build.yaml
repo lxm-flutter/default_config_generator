@@ -1,0 +1,9 @@
+builders:
+  json_config_generator:
+    target: ":default_config_annotations"
+    import: "package:default_config_generator/default_config_generator.dart"
+    builder_factories: [ "configBuilder" ]
+    build_extensions: { ".dart": [ ".default_config_generator.g.part" ] }
+    auto_apply: dependents
+    build_to: cache
+    applies_builders: [ "source_gen|combining_builder" ]

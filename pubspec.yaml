@@ -1,0 +1,23 @@
+name: default_config_generator
+description: Configuration generator from json files.
+version: 0.1.0
+homepage: https://github.com/lxm-flutter/default_config_generator
+
+environment:
+  sdk: ">=2.17.6 <3.0.0"
+  flutter: ">=1.17.0"
+
+dependencies:
+  analyzer: ^4.6.0
+  build: ^2.3.0
+  dart_style: ^2.2.3
+  source_gen: ^1.2.2
+  code_builder: ^4.2.0
+  build_config: ^1.1.0
+  built_collection: ^5.1.1
+  default_config_annotation: ^0.0.1
+  recase: ^4.0.0
+  json5: ^0.8.0
+
+
+dev_dependencies:
