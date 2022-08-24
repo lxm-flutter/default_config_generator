@@ -161,7 +161,6 @@ class DefaultConfigGenerator extends GeneratorForAnnotation<DefaultConfig> {
   }
 
   /// 注释
-  /// 不支持末尾注释
   Future<Map<String, List<String>>> comment(String path,
       {String symbol = "//"}) async {
     var list = await File(path).readAsLines();
@@ -172,6 +171,14 @@ class DefaultConfigGenerator extends GeneratorForAnnotation<DefaultConfig> {
       if (list[i].trim().startsWith(symbol)) {
         temp.add(list[i].replaceAll(symbol, '').trim());
         continue;
+      }
+
+      // 末尾注释
+
+      // 匹配字符串值存在 [symbol] 的情况
+      var endComment = getEndComment(list[i]);
+      if (endComment != null && endComment.isNotEmpty) {
+        temp.add(endComment);
       }
       if (temp.isNotEmpty) {
         var split = list[i].split(':');
@@ -211,4 +218,13 @@ class FieldInfo {
   }
 
   Reference? get type => isClass ? null : refer(fieldType);
+}
+
+String? getEndComment(String str, {String symbol = "//"}) {
+  var regExp = RegExp(r':\s*".*"');
+  if (regExp.hasMatch(str)) {
+    str = str.replaceFirst(regExp, '');
+  }
+  var match = RegExp('$symbol(.*)').firstMatch(str);
+  return match?.group(1)?.trim();
 }
